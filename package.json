@@ -1,80 +1,87 @@
 {
-  "name": "typescriptreactboilerplate",
-  "version": "1.0.0",
-  "description": "React Typescript Boilerplate",
-  "main": "index.js",
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/test-shim.js",
-      "<rootDir>/test-setup.js"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
+    "name": "typescriptreactboilerplate",
+    "version": "1.0.0",
+    "description": "React Typescript Boilerplate",
+    "main": "index.js",
+    "jest": {
+        "setupFiles": [
+            "<rootDir>/test-shim.js",
+            "<rootDir>/test-setup.js"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js"
+        ],
+        "transform": {
+            "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
+        },
+        "testMatch": [
+            "**/__tests__/*.(ts|tsx|js)"
+        ]
     },
-    "testMatch": [
-      "**/__tests__/*.(ts|tsx|js)"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn test --watchAll=false"
-    }
-  },
-  "dependencies": {
-    "express": "^4.17.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "typescript": "^3.4.5"
-  },
-  "devDependencies": {
-    "@types/enzyme": "^3.9.2",
-    "@types/jest": "^24.0.13",
-    "@types/react": "^16.8.17",
-    "@types/react-dom": "^16.8.4",
-    "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "@typescript-eslint/parser": "^1.9.0",
-    "copy-webpack-plugin": "^5.0.3",
-    "css-loader": "^2.1.1",
-    "dotenv-webpack": "^1.7.0",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.13.1",
-    "eslint": "^5.16.0",
-    "html-webpack-plugin": "^3.2.0",
-    "husky": "^2.3.0",
-    "jest": "^24.8.0",
-    "mini-css-extract-plugin": "^0.6.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "prettier": "^1.17.1",
-    "react-test-renderer": "^16.8.6",
-    "sass-loader": "^7.1.0",
-    "source-map-loader": "^0.2.4",
-    "ts-jest": "^24.0.2",
-    "ts-loader": "^6.0.1",
-    "uglifyjs-webpack-plugin": "^2.1.3",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2",
-    "webpack-dev-middleware": "^3.7.0",
-    "webpack-hot-middleware": "^2.25.0"
-  },
-  "scripts": {
-    "test": "jest",
-    "build": "./node_modules/.bin/webpack",
-    "start": "npm run build && node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate/issues"
-  },
-  "homepage": "https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate#readme"
+    "husky": {
+        "hooks": {
+            "pre-push": "yarn test --watchAll=false"
+        }
+    },
+    "dependencies": {
+        "express": "^4.17.0",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "typescript": "^3.4.5"
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.4.4",
+        "@babel/preset-react": "^7.0.0",
+        "@types/enzyme": "^3.9.2",
+        "@types/jest": "^24.0.13",
+        "@types/react": "^16.8.17",
+        "@types/react-dom": "^16.8.4",
+        "@typescript-eslint/eslint-plugin": "^1.9.0",
+        "@typescript-eslint/parser": "^1.9.0",
+        "awesome-typescript-loader": "^5.2.1",
+        "babel-loader": "^8.0.6",
+        "copy-webpack-plugin": "^5.0.3",
+        "css-loader": "^2.1.1",
+        "dotenv-webpack": "^1.7.0",
+        "enzyme": "^3.9.0",
+        "enzyme-adapter-react-16": "^1.13.1",
+        "eslint": "^5.16.0",
+        "html-webpack-plugin": "^3.2.0",
+        "husky": "^2.3.0",
+        "jest": "^24.8.0",
+        "mini-css-extract-plugin": "^0.6.0",
+        "optimize-css-assets-webpack-plugin": "^5.0.1",
+        "prettier": "^1.17.1",
+        "react-test-renderer": "^16.8.6",
+        "sass-loader": "^7.1.0",
+        "source-map-loader": "^0.2.4",
+        "ts-jest": "^24.0.2",
+        "ts-loader": "^6.0.1",
+        "uglifyjs-webpack-plugin": "^2.1.3",
+        "url-loader": "^1.1.2",
+        "webpack": "^4.31.0",
+        "webpack-cli": "^3.3.2",
+        "webpack-dev-middleware": "^3.7.0",
+        "webpack-dev-server": "^3.4.1",
+        "webpack-hot-middleware": "^2.25.0"
+    },
+    "scripts": {
+        "test": "jest",
+        "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --config ./webpack.config.js --mode development",
+        "dev:build-js": "webpack --config ./webpack.config.js --mode development",
+        "prod:build-js": "webpack --config ./webpack.config.js --mode production",
+        "prettier:fix": "./node_modules/.bin/prettier './src/**/*.js' --write"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate/issues"
+    },
+    "homepage": "https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate#readme"
 }
