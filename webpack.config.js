@@ -24,7 +24,7 @@ const baseConfig = {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'awesome-typescript-loader',
+                loader: 'ts-loader',
             },
             { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
             {
