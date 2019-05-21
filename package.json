@@ -44,6 +44,7 @@
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.13.1",
         "eslint": "^5.16.0",
+        "eslint-plugin-prettier": "^3.1.0",
         "html-webpack-plugin": "^3.2.0",
         "husky": "^2.3.0",
         "jest": "^24.8.0",
@@ -68,7 +69,7 @@
         "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --config ./webpack.config.js --mode development",
         "dev:build-js": "webpack --config ./webpack.config.js --mode development",
         "prod:build-js": "webpack --config ./webpack.config.js --mode production",
-        "prettier:fix": "./node_modules/.bin/prettier './src/**/*.js' --write"
+        "prettier:fix": "./node_modules/.bin/prettier './src/**/*.ts' --write"
     },
     "repository": {
         "type": "git",
