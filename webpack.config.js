@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,7 +14,9 @@ const baseConfig = {
     entry: './src/index.tsx',
     output: {
         filename: 'bundle.js',
-        path: __dirname + '/dist',
+        path: __dirname + '/build',
+        publicPath: '/',
+        chunkFilename: '[name].chunk.js',
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -79,7 +81,7 @@ const baseConfig = {
         new CopyWebpackPlugin([
             {
                 from: './public',
-                to: './build',
+                to: '.',
                 ignore: ['*.html'],
             },
         ]),
@@ -96,7 +98,7 @@ const productionConfig = {
     module: baseConfig.module,
     plugins: baseConfig.plugins,
     optimization: {
-        minimizer: [new UglifyJsPlugin({ sourceMap: true }), new OptimizeCSSAssetsPlugin({})],
+        minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
     },
 };
 
