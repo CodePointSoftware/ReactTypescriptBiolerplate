@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`APP renders the heading 1`] = `
+<App>
+  <h1>
+    This is a Basic Typescript Component with 
+    Counter
+    : 
+    <span
+      className="counter"
+    >
+      0
+    </span>
+  </h1>
+  <button
+    onClick={[Function]}
+  >
+    Increment
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    Decrement
+  </button>
+</App>
+`;
