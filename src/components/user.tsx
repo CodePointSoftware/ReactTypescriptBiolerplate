@@ -11,7 +11,10 @@ const User: SFC = ({ }) => {
 
     return (
         <Fragment>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '150px' }}>
+            <h1 style={{ marginTop: '100px' }}>
+                This is Async example.
+            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '50px' }}>
                 <button onClick={() => dispatch(fetchUser())}>FETCH HERO</button>
                 <button onClick={() => dispatch(fetchRandomUser())}>FETCH RANDOM HERO</button>
                 <button onClick={() => dispatch(clearUser())}>CLEAR USER</button>

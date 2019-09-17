@@ -18,8 +18,9 @@ const Counter: SFC<Props> = ({ title = 'Counter' }) => {
     return (
         <>
             <h1>
-                This is a Basic Typescript Component with {title}: <span className="counter">{counterValue}</span>
+                This is Sync example.
             </h1>
+            <p>{title}: <span className="counter">{counterValue}</span></p>
             <button onClick={increment}>Increment</button>
             <button onClick={decrement}>Decrement</button>
         </>
