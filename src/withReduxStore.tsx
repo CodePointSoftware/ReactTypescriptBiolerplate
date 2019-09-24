@@ -1,6 +1,8 @@
 import React, { SFC } from 'react';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore, compose } from 'redux';
+import { ajax } from 'rxjs/ajax';
+import { VirtualTimeScheduler } from 'rxjs'
 import { createEpicMiddleware } from 'redux-observable';
 import { rootEpic } from './epics'
 import reducers from './reducers';
@@ -12,13 +14,22 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const epicMiddleware = createEpicMiddleware();
+
+export const configureStore = (deps = {}) => {
+    const epicMiddleware = createEpicMiddleware({
+        dependencies: {
+            ajax,
+            ...deps
+        },
+    });
+    const store = createStore(reducers, composeEnhancers(applyMiddleware(epicMiddleware)));
+    epicMiddleware.run(rootEpic);
+    return store;
+}
 
 
 const Root: SFC = ({ children }) => {
-    const store = createStore(reducers, composeEnhancers(applyMiddleware(epicMiddleware)));
-
-    epicMiddleware.run(rootEpic);
+    const store = configureStore();
 
     return <Provider store={store}>{children}</Provider>;
 };
