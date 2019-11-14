@@ -2,7 +2,6 @@ import React, { SFC } from 'react';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { ajax } from 'rxjs/ajax';
-import { VirtualTimeScheduler } from 'rxjs'
 import { createEpicMiddleware } from 'redux-observable';
 import { rootEpic } from './epics'
 import reducers from './reducers';
