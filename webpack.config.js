@@ -1,8 +1,7 @@
+const path = require('path');
 const webpack = require('webpack');
-
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractCSSPlugin = require('mini-css-extract-plugin');
@@ -10,7 +9,7 @@ const Dotenv = require('dotenv-webpack');
 
 const SRC_DIR = path.resolve(__dirname, './src');
 
-const baseConfig = {
+const baseConfig = isProduction => ({
     entry: './src/index.tsx',
     output: {
         filename: 'bundle.js',
@@ -63,7 +62,15 @@ const baseConfig = {
             {
                 test: /\.(sass|scss)$/,
                 exclude: /node_modules/,
-                use: [ExtractCSSPlugin.loader, 'css-loader', 'sass-loader'],
+                use: [
+                    isProduction ? ExtractCSSPlugin.loader : 'style-loader',
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'sass-loader',
+                    },
+                ],
             },
         ],
     },
@@ -71,9 +78,7 @@ const baseConfig = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './public/index.html'),
         }),
-        new Dotenv({
-            path: path.resolve(__dirname, '.env'),
-        }),
+
         new ExtractCSSPlugin({
             filename: '[name].[hash].css',
             chunkFilename: '[id].[hash].css',
@@ -86,41 +91,52 @@ const baseConfig = {
             },
         ]),
     ],
+});
+
+const productionConfig = () => {
+    const base = baseConfig(true);
+    // Root File of server app
+    return {
+        ...base,
+        devtool: false,
+        mode: 'production',
+        optimization: {
+            minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
+        },
+        plugins: [
+            ...base.plugins,
+            new Dotenv({
+                path: path.resolve(__dirname, '.env'),
+            }),
+        ],
+    };
 };
 
-const productionConfig = {
+const developmentConfig = () => {
     // Root File of server app
-    ...baseConfig,
-    devtool: false,
-    entry: baseConfig.entry,
-    mode: 'production',
-    output: baseConfig.output,
-    module: baseConfig.module,
-    plugins: baseConfig.plugins,
-    optimization: {
-        minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
-    },
-};
+    const base = baseConfig(false);
 
-const developmentConfig = {
-    // Root File of server app
-    ...baseConfig,
-    devtool: 'eval-source-map',
-    mode: 'development',
-    entry: baseConfig.entry,
-    output: baseConfig.output,
-    module: baseConfig.module,
-    plugins: baseConfig.plugins,
-    optimization: {
-        minimizer: [],
-    },
-    devServer: {
-        contentBase: SRC_DIR,
-        historyApiFallback: true,
-        host: '0.0.0.0',
-        hot: true,
-        overlay: true,
-    },
+    return {
+        ...base,
+        devtool: 'eval-source-map',
+        mode: 'development',
+        optimization: {
+            minimizer: [],
+        },
+        devServer: {
+            contentBase: SRC_DIR,
+            historyApiFallback: true,
+            host: '0.0.0.0',
+            hot: true,
+            overlay: true,
+        },
+        plugins: [
+            ...base.plugins,
+            new Dotenv({
+                path: path.resolve(__dirname, '.env.dev'),
+            }),
+        ],
+    };
 };
 
 module.exports = (env, argv) => {
@@ -128,7 +144,7 @@ module.exports = (env, argv) => {
     console.log(mode);
     const isProduction = mode === 'production';
     if (isProduction) {
-        return productionConfig;
+        return productionConfig();
     }
-    return developmentConfig;
+    return developmentConfig();
 };
