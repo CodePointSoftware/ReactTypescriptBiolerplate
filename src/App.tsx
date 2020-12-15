@@ -1,15 +1,6 @@
-import React, { SFC, useState } from 'react';
-import WithReduxStore from './withReduxStore';
+import React, { FC, useState } from 'react';
+import './styles/main.scss';
 
-import Counter from './components/counter';
-import User from './components/user';
-
-
-const App: SFC = () => (
-    <WithReduxStore>
-        <Counter />
-        <User />
-    </WithReduxStore>
-)
+const App: FC = () => <h1>React with TypeScript boilerplate (v2)</h1>;
 
 export default App;

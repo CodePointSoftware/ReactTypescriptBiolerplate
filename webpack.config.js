@@ -9,10 +9,10 @@ const Dotenv = require('dotenv-webpack');
 
 const SRC_DIR = path.resolve(__dirname, './src');
 
-const baseConfig = isProduction => ({
+const baseConfig = (isProduction) => ({
     entry: './src/index.tsx',
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[hash].js',
         path: __dirname + '/build',
         publicPath: '/',
         chunkFilename: '[name].chunk.js',
@@ -83,13 +83,17 @@ const baseConfig = isProduction => ({
             filename: '[name].[hash].css',
             chunkFilename: '[id].[hash].css',
         }),
-        new CopyWebpackPlugin([
-            {
-                from: './public',
-                to: '.',
-                ignore: ['*.html'],
-            },
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: './public',
+                    to: '.',
+                    globOptions: {
+                        ignore: ['*.html'],
+                    },
+                },
+            ],
+        }),
     ],
 });
 
