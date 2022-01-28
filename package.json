@@ -93,5 +93,6 @@
     "bugs": {
         "url": "https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate/issues"
     },
-    "homepage": "https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate#readme"
+    "homepage": "https://github.com/krzysztofgrowinski/ReactTypescriptBiolerplate#readme",
+    "packageManager": "yarn@3.1.1"
 }
