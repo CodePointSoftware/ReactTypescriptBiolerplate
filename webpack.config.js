@@ -12,7 +12,7 @@ const SRC_DIR = path.resolve(__dirname, './src');
 const baseConfig = (isProduction) => ({
     entry: './src/index.tsx',
     output: {
-        filename: 'bundle.[hash].js',
+        filename: 'bundle.[fullhash].js',
         path: __dirname + '/build',
         publicPath: '/',
         chunkFilename: '[name].chunk.js',
@@ -80,16 +80,17 @@ const baseConfig = (isProduction) => ({
         }),
 
         new ExtractCSSPlugin({
-            filename: '[name].[hash].css',
-            chunkFilename: '[id].[hash].css',
+            filename: '[name].[fullhash].css',
+            chunkFilename: '[id].[chunkhash].css',
         }),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: './public',
+                    from: './public/assets',
                     to: '.',
                     globOptions: {
-                        ignore: ['*.html'],
+                        dot: true,
+                        ignore: ['.gitkeep'],
                     },
                 },
             ],
@@ -128,11 +129,13 @@ const developmentConfig = () => {
             minimizer: [],
         },
         devServer: {
-            contentBase: SRC_DIR,
+            // contentBase: SRC_DIR,
             historyApiFallback: true,
             host: '0.0.0.0',
             hot: true,
-            overlay: true,
+            client: {
+                overlay: true,
+            },
         },
         plugins: [
             ...base.plugins,
