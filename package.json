@@ -51,8 +51,7 @@
         "ts-loader": "^9.3.1",
         "typescript": "^5.2.2",
         "vite": "^4.4.9",
-        "vite-plugin-html": "^3.2.0",
-        "vite-plugin-html-purgecss": "^0.1.1"
+        "vite-plugin-html": "^3.2.0"
     },
     "scripts": {
         "test": "jest --passWithNoTests",
