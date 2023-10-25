@@ -1,0 +1,37 @@
+@import '../../styles/main.scss';
+
+.page-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 50vh;
+  width: 60vh;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  background: #aaa;
+
+  &__wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__header {
+    font-family: $font-family--primary;
+    font-size: 4rem;
+    font-weight: 500;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+  }
+}
