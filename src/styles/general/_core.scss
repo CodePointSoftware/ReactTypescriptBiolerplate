@@ -1,0 +1,17 @@
+// --------------------------------------------------
+//	Core
+// --------------------------------------------------
+
+body {
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#notification-root {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+
+  z-index: map-get($z-index, notification);
+}

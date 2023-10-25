@@ -1,0 +1,91 @@
+// ------------------------------------------
+//  Animations
+// ------------------------------------------
+
+$time-fast: 0.2s;
+$time-medium: 0.3s;
+$time-slow: 0.6s;
+
+$transition-duration: $time-medium;
+$transition-property: all;
+$transition-timing-function: ease;
+
+@keyframes opacity-show {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity-hide {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes show-drawer-left {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes show-drawer-top {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes show-drawer-right {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes hide-drawer-left {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes hide-drawer-top {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes hide-drawer-right {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(40px);
+  }
+}

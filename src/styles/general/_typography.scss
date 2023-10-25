@@ -1,0 +1,50 @@
+// font Family
+
+$font-family--primary: 'Roboto', sans-serif;
+$font-family--secondary: 'Archivo Black', sans-serif;
+
+// Font Weights
+%font-weight--light {
+  font-weight: 200;
+}
+
+%font-weight--regular {
+  font-weight: 400;
+}
+
+%font-weight--medium {
+  font-weight: 500;
+}
+
+%font-weight--bold {
+  font-weight: 700;
+}
+
+%font-weight--black {
+  font-weight: 900;
+}
+
+%font--header {
+  font-size: 28px;
+  line-height: 48px;
+}
+
+%font--paragraph-bold {
+  font-size: 16px;
+}
+
+%font--paragraph {
+  font-size: 14px;
+}
+
+%font--menu-item {
+  font-size: 14px;
+}
+
+%font--user-bar {
+  font-size: 16px;
+}
+
+.font--center {
+  text-align: center !important;
+}

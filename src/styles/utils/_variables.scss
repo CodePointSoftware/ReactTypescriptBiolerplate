@@ -1,0 +1,73 @@
+//Primary
+$main: #276ef1;
+
+//Secondary
+$secondary-main: #1d1b31;
+$secondary-dark: #11101b;
+
+// Whites / Greys / Blacks
+$white: rgb(255, 255, 255);
+$black: rgb(0, 0, 0);
+$icon-outline-grey: rgb(224, 224, 224);
+$light-grey: #f8f8f8;
+$grey: #ccc;
+$dark-grey: #b4b4b4;
+$light-dark: #676973;
+$grey-border: #979797;
+$transparent: transparent;
+$background-grey: #efefef;
+$hover-grey: #f8f8f8;
+
+// Yellows
+$simple-orange: #db814c;
+
+// Reds
+
+$red: #cc343c;
+$flamingo-pink: #cf676c;
+$ultra-violet: #aa5d82;
+$deep-purple: #775a86;
+
+// Blues
+$blue: #234cbd;
+$dim-blue: #485476;
+$navy: #2f4858;
+$light-blue: #368b9a;
+
+// Greens
+$light-green: #50c879;
+$green: #5a7e73;
+
+// Shadows
+$shadow-light: rgba(0, 0, 0, 0.1);
+
+// Gradients
+$background-basic: linear-gradient(
+  45deg,
+  $simple-orange,
+  $flamingo-pink,
+  $ultra-violet,
+  $deep-purple,
+  $dim-blue,
+  $navy
+);
+
+//Border adjustments
+$round-corners-max: 100%;
+$round-corners: 16px;
+$round-corners-task: 5px;
+
+// consts
+$phi: 1.6180339887498948482;
+
+$z-index: (
+  base: 0,
+  outline: 1,
+  loaderMask: 99,
+  floatingButton: 2500,
+  drawer: 3000,
+  sideMenu: 3500,
+  navigation: 4000,
+  sideMenuPops: 6000,
+  notification: 10000,
+);
