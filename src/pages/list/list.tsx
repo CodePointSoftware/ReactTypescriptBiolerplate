@@ -1,5 +1,5 @@
 import { FC, useEffect, useReducer } from 'react';
-
+import { DetailItem } from '../detail/details';
 import { ListItem } from '../../components/listItem/listItem';
 import { IHero } from '../../models/hero/hero';
 import './list.scss';
@@ -24,14 +24,19 @@ const PageList: FC = () => {
   }, []);
 
   const renderHeroes = state.data?.map((hero: IHero) => (
-    <ListItem key={hero.name} url="https://swapi.dev/api/people/1/" hero={hero} />
+    <div className="list-item" key={hero.name}>
+    <DetailItem
+    hero={hero}
+    onclick={() => alert(`Detale bohatera: ${hero.name}`)}
+    />
+    </div>
   ));
 
   return (
     <div className="page-list__wrapper">
       <div className="page-list">
         <h1 className="page-list__header">Star Wars Heroes</h1>
-        {state.isLoading && <p>Loading...</p>}
+        {state.isLoading && <p className="page-list__loading">Loading...</p>}
         {!state.isLoading && <div className="page-list__list">{renderHeroes}</div>}
       </div>
     </div>
