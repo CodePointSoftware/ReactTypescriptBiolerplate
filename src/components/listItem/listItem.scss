@@ -4,9 +4,8 @@
   width: 100%;
   height: 80px;
   display: flex;
-  align-items: center;
+  align-items:center ;
   justify-content: space-between;
-
-  border: 1px solid $dim-blue;
+  border: 1px solid $shadow-light;
   background: $white;
 }
