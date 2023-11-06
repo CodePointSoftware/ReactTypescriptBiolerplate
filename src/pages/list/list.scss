@@ -9,8 +9,7 @@
   width: 90vh;
   border: 1px solid #ccc;
   border-radius: 8px;
-
-  background: #aaa;
+  background: black;
 
   &__wrapper {
     height: 100vh;
@@ -25,9 +24,11 @@
     font-size: 2rem;
     font-weight: 500;
     padding: 20px;
+    color: yellow;
   }
 
   &__list {
+    font-family: $font-family--primary;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,6 +40,7 @@
     margin-bottom: 150px;
     font-weight: 600;
     font-size: 24px;
+    color: yellow;
   }
 
   .list-item {
@@ -47,8 +49,8 @@
     display: flex;
     align-items:center ;
     justify-content: space-between;
-    border: 1px solid $shadow-light;
-    background: $white;
+    border: 1px solid $hover-grey;
+    background: black;
     list-style-type: none;
   }
 }

@@ -30,6 +30,7 @@ const DetailItem: FC<IListItemProps> = ({ hero }) => {
     return (
       <div className="detail-item">
       <ul className="detail-item--ul">
+        <li className="detail-item--header">Name: {hero.name}</li>
         <li>Height: {hero.height}</li>
         <li>Mass: {hero.mass}</li>
         <li>Hair color: {hero.hair_color}</li>
