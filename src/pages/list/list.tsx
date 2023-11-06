@@ -1,6 +1,5 @@
 import { FC, useEffect, useReducer } from 'react';
 import { DetailItem } from '../detail/details';
-import { ListItem } from '../../components/listItem/listItem';
 import { IHero } from '../../models/hero/hero';
 import './list.scss';
 import { GetData, SetData, SetError, initialState, reducer } from './listReducer';
@@ -26,9 +25,8 @@ const PageList: FC = () => {
   const renderHeroes = state.data?.map((hero: IHero) => (
     <div className="list-item" key={hero.name}>
     <DetailItem
-    hero={hero}
-    onclick={() => alert(`Detale bohatera: ${hero.name}`)}
-    />
+        hero={hero}
+        onclick={() => alert(`Hero detils: ${hero.name}`)} key={''} url={''}    />
     </div>
   ));
 
