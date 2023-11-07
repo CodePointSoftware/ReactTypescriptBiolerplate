@@ -2,33 +2,58 @@ import { FC, useState } from 'react';
 import { IHero } from '../../models/hero/hero';
 import '../../pages/list/list.scss';
 import './details.scss';
+import femalePhoto from './images/female.png';
+import malePhoto from './images/male.png';
+import emptyPhoto from './images/mark.png';
+
 
 interface IListItemProps {
   key: string;
   url: string
   hero: IHero;
   onclick: () => void;
+  femalePhoto: string;
+  malePhoto: string;
+  emptyPhoto: string;
 }
 
 interface IListItemState {
     detailsVisible: boolean;
+    femalePhoto: string;
+    malePhoto: string;
+    emptyPhoto: string;
 }
 
 const DetailItem: FC<IListItemProps> = ({ hero }) => {
   const [state, setState] = useState<IListItemState>({
-   detailsVisible: false, 
+   detailsVisible: false,
+   femalePhoto: '/female.png',
+   malePhoto: '/male.png',
+   emptyPhoto: '/mark.png',
   });
 
   const handleDetailsClick = () => {
-    setState({
+    setState((prevState) => ({
+      ...prevState,
     detailsVisible: !state.detailsVisible,
-  });
+  }));
 };
 
   const renderDetails = () => {
     if (state.detailsVisible) {
     return (
       <div className="detail-item">
+        <div className="image-container">
+        {hero.gender === "female" && (
+          <img src={femalePhoto} alt="Female hero image" className="img" /> 
+        )}
+        {hero.gender === "male" && (
+          <img src={malePhoto} alt="Male hero image" className="img" />
+        )}
+        {hero.gender === "n/a" && (
+        <img src={emptyPhoto} alt="Empty hero image" className="img" />
+        )} 
+      </div>
       <ul className="detail-item--ul">
         <li className="detail-item--header">Name: {hero.name}</li>
         <li>Height: {hero.height}</li>

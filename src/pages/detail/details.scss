@@ -1,19 +1,43 @@
+@import '../../styles/main.scss';
+
 .detail-item {
     position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 30px; 
-  background: black;
-  color: yellow;   
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-height: 60%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background: #1F1A1A;
+    color: yellow; 
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 30%;
+    height: auto;
+    border-radius: 50%;
+    transition: 0.7s;
+    overflow: hidden;
+    flex: 1;
+}
+
+.img {
+    max-width: 100%;
+    max-height: 100%;
+
+}
+
+.detail-item--ul {
+    padding: 50px 100px;   
 }
 
 .detail-item--li {
@@ -24,11 +48,12 @@
     font-weight: 200;
     line-height: 1.5;
     color: yellow;
+    margin-left: 20px;
 }
 
 .detail-item--h2 {
-    text-align: center;
-    margin: 60px 10px;
+    text-align: left;
+    margin: 60px 10px 60px 0;
 }
 
 .detail-item--header {

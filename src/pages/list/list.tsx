@@ -3,6 +3,10 @@ import { DetailItem } from '../detail/details';
 import { IHero } from '../../models/hero/hero';
 import './list.scss';
 import { GetData, SetData, SetError, initialState, reducer } from './listReducer';
+import femalePhoto from '../detail/images/female.png'
+import malePhoto from '../detail/images/male.png';
+import emptyPhoto from '../detail/images/mark.png';
+
 
 const PageList: FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -24,9 +28,24 @@ const PageList: FC = () => {
 
   const renderHeroes = state.data?.map((hero: IHero) => (
     <div className="list-item" key={hero.name}>
+      {hero.gender !== 'n/a' && (
+      <img
+      src={hero.gender === 'female' ? femalePhoto : malePhoto}
+      alt={hero.gender === 'female' ? 'Female hero' : 'Male hero'}
+      className="gender-image"
+      />
+      )}
+      {hero.gender === 'n/a'  && (
+        <img
+        src={emptyPhoto}
+        alt="Empty photo"
+        className="gender-image"
+        />
+      )}
+      
     <DetailItem
         hero={hero}
-        onclick={() => alert(`Hero detils: ${hero.name}`)} key={''} url={''}    />
+        onclick={() => alert(`Hero detils: ${hero.name}`)} key={''} url={''} femalePhoto={''} malePhoto={''} emptyPhoto={''}/>
     </div>
   ));
 
