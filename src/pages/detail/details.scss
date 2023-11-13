@@ -16,6 +16,7 @@
   padding: 10px;
   background: $white;
   color: $black;
+  user-select: text;
 }
 
 .image-container {
@@ -28,6 +29,7 @@
   transition: 0.7s;
   overflow: hidden;
   flex: 1; 
+  user-select: text;
 }
 
 .img {
@@ -37,6 +39,18 @@
 
 .detail-item--ul {
   padding: 50px 100px;   
+  user-select: text;
+}
+
+.detail-item--ul__close-button {
+  background-color: $hover-grey;
+  border: none;
+  margin-top: 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+
 }
 
 .detail-item--li {
@@ -53,6 +67,7 @@
 .detail-item--h2 {
   text-align: left;
   margin: 20px 10px 20px 0;
+  cursor: pointer;
 }
 
 .detail-item--header {

@@ -35,8 +35,15 @@ const DetailItem: FC<IListItemProps> = ({ hero }) => {
   const handleDetailsClick = () => {
     setState((prevState) => ({
       ...prevState,
-    detailsVisible: !state.detailsVisible,
+    detailsVisible: !prevState.detailsVisible,
   }));
+};
+
+const handleClose = () => {
+  setState({
+    ...state,
+    detailsVisible: false,
+  });
 };
 
   const renderDetails = () => {
@@ -65,15 +72,22 @@ const DetailItem: FC<IListItemProps> = ({ hero }) => {
           <li>Eye color: {hero.eye_color}</li>
           <li>Birth year: {hero.birth_year}</li>
           <li>Gender: {hero.gender}</li>
-        </ul>
+        <button 
+          className="detail-item--ul__close-button" 
+          style={state.detailsVisible ? { display: 'block'} : { display: 'none' }}
+          onClick={handleClose}
+        >
+          Close
+        </button>
+       </ul>
       </div>
     );
   }
 };
 
   return (
-    <li  className={'detail-item--li ${genderClass}'} onClick={handleDetailsClick}>
-      <h2 className={'detail-item--h2 ${genderClass}'}>
+    <li  className={'detail-item--li ${genderClass}'} onClick={state.detailsVisible ? undefined : handleDetailsClick}>
+      <h2 className={'detail-item--h2 ${genderClass}'} contentEditable="true">
         {hero.gender == 'female' ? <span style={{ color: 'pink'}}> {hero.name}</span> :
          hero.gender === 'male' ? <span style={{ color: 'lightblue' }}>{hero.name}</span> :
          hero.gender === 'n/a' ? <span style={{ color: 'grey'}}>{hero.name}</span> : null}
