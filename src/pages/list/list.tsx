@@ -30,6 +30,7 @@ const PageList: FC = () => {
 
   const renderHeroes = data?.map((hero: IHero) => (
     <div className="list-item" key={hero.name}>
+      <div className="hero-image--container" style={{ backgroundColor: hero.gender === 'female' ? 'pink' : hero.gender == 'male' ? 'lightblue' : 'lightgray'}}></div>
       {hero.gender !== 'n/a' && (
       <img
       src={hero.gender === 'female' ? femalePhoto : malePhoto}
