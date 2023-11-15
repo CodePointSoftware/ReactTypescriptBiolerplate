@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { DetailItem } from '../detail/details';
 import { IHero } from '../../models/hero/hero';
@@ -15,18 +15,37 @@ const PageList: FC = () => {
   const isError = useSelector((state: any) => state.list.error);
 
   const dispatch = useAppDispatch();
+  const [nextPageUrl, setNextPageUrl] = useState<string | null>(null);
+  const [prevPageUrl, setPrevPageUrl] = useState<string | null>(null);
+
+  const fetchHeroesData = async (url: string) => {
+    try {
+      dispatch(getDataStart());
+      const response = await fetch(url);
+      const responseData = await response.json();
+      dispatch(getDataSuccess(responseData.results));
+      setNextPageUrl(responseData.next);
+      setPrevPageUrl(responseData.previous);
+    } catch (error) {
+      dispatch(getDataError('Error fetching data'));
+    }
+  };
 
   useEffect(() => {
-    dispatch(getDataStart());
-    fetch('https://swapi.dev/api/people')
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(getDataSuccess(data.results));
-      })
-      .catch((_err) => {
-        dispatch(getDataError('Error fetching data'));
-      });
-  }, [dispatch]);
+    fetchHeroesData('https://swapi.dev/api/people');
+  }, []);
+
+  const handleNextPage = () => {
+    if (nextPageUrl) {
+      fetchHeroesData(nextPageUrl);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (prevPageUrl) {
+      fetchHeroesData(prevPageUrl);
+    }
+  };
 
   const renderHeroes = data?.map((hero: IHero) => (
     <div className="list-item" key={hero.name}>
@@ -67,6 +86,14 @@ const PageList: FC = () => {
           <div className="page-list__list">{renderHeroes}</div>
         )}
         {isError && <p className="page-list__error">Error fetching data.</p>}
+        <div className="page-list__buttons">
+          <button onClick={handlePrevPage} disabled={!prevPageUrl}>
+            Previous Page
+          </button>
+          <button onClick={handleNextPage} disabled={!nextPageUrl}>
+            Next Page
+          </button>
+        </div>
       </div>
     </div>
   );

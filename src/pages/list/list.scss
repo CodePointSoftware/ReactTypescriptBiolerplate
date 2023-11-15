@@ -82,4 +82,22 @@
     border-radius: 50%;
   }
   }
+
+  .page-list__buttons {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; 
+  }
+  .page-list__buttons button {
+    background-color: $hover-grey;
+    margin: 0 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px;
+  } 
 }
