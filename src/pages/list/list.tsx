@@ -31,6 +31,23 @@ const PageList: FC = () => {
     }
   };
 
+  const renderButtons = () => {
+    return (
+      <div className="page-list__buttons">
+        {isLoading && <p className="page-list__loading">Loading...</p>}
+        {!isLoading && (
+           <>
+           <div className="page-list__buttons"></div>
+           <button onClick={handlePrevPage} disabled={!prevPageUrl}>
+            Previous Page
+          </button><button onClick={handleNextPage} disabled={!nextPageUrl}>
+              Next Page
+            </button></>
+        )}
+      </div>
+    );
+  };
+
   useEffect(() => {
     fetchHeroesData('https://swapi.dev/api/people');
   }, []);
@@ -81,19 +98,11 @@ const PageList: FC = () => {
     <div className="page-list__wrapper">
       <div className="page-list">
         <h1 className="page-list__header">Star Wars Heroes</h1>
-        {isLoading && <p className="page-list__loading">Loading...</p>}
         {!isLoading && !isError && (
           <div className="page-list__list">{renderHeroes}</div>
         )}
         {isError && <p className="page-list__error">Error fetching data.</p>}
-        <div className="page-list__buttons">
-          <button onClick={handlePrevPage} disabled={!prevPageUrl}>
-            Previous Page
-          </button>
-          <button onClick={handleNextPage} disabled={!nextPageUrl}>
-            Next Page
-          </button>
-        </div>
+        {renderButtons()}
       </div>
     </div>
   );

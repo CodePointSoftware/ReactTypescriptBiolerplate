@@ -84,12 +84,12 @@
   }
 
   .page-list__buttons {
-    position: fixed;
     bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px; 
+    margin-top: 200px;
   }
   .page-list__buttons button {
     background-color: $hover-grey;
