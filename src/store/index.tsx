@@ -1,9 +1,6 @@
-import { combineReducers, Reducer } from '@reduxjs/toolkit';
-import listReducer from '../pages/list/listSlice'
+import { combineReducers } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({
-    list:listReducer as Reducer<ReturnType<typeof listReducer>>,
-});
+const rootReducer = combineReducers({});
 
 export type ReduxStoreType = ReturnType<typeof rootReducer>;
 

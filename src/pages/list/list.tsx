@@ -1,70 +1,54 @@
-import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { DetailItem } from '../detail/details';
+import { FC, useEffect, useReducer, useState } from 'react';
+import { ListItem } from '../../components/listItem/listItem';
 import { IHero } from '../../models/hero/hero';
 import './list.scss';
-import { getDataStart, getDataSuccess, getDataError } from './listSlice';
-import { useAppDispatch } from '../../../src/store/root';
+import { GetData, SetData, SetError, initialState, reducer } from './listReducer';
 import femalePhoto from '../detail/images/female.png'
 import malePhoto from '../detail/images/male.png';
 import emptyPhoto from '../detail/images/mark.png';
 
+export const OpenModal = (hero: IHero) => ({
+  type: 'OPEN_MODAL',
+  payload: hero,
+});
+
 const PageList: FC = () => {
-  const data = useSelector((state: any) => state.list.data);
-  const isLoading = useSelector((state: any) => state.list.isLoading)
-  const isError = useSelector((state: any) => state.list.error);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [selectedHero, setSelectedHero] = useState<IHero | null>(null); 
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
+  const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [, setNextPage] = useState<string | null>(null);
 
-  const dispatch = useAppDispatch();
-  const [nextPageUrl, setNextPageUrl] = useState<string | null>(null);
-  const [prevPageUrl, setPrevPageUrl] = useState<string | null>(null);
-
-  const fetchHeroesData = async (url: string) => {
+  const getHeroes = async (page: number) => {
     try {
-      dispatch(getDataStart());
-      const response = await fetch(url);
-      const responseData = await response.json();
-      dispatch(getDataSuccess(responseData.results));
-      setNextPageUrl(responseData.next);
-      setPrevPageUrl(responseData.previous);
-    } catch (error) {
-      dispatch(getDataError('Error fetching data'));
+      dispatch(GetData());
+      const response = await fetch(`https://swapi.dev/api/people/?page=${page}`);
+      const data = await response.json();
+      dispatch(SetData(data.results));
+      setTotalPages(Math.ceil(data.count / itemsPerPage));
+      setNextPage(data.next);
+    } catch (err) {
+      dispatch(SetError());
     }
-  };
-
-  const renderButtons = () => {
-    return (
-      <div className="page-list__buttons">
-        {isLoading && <p className="page-list__loading">Loading...</p>}
-        {!isLoading && (
-           <>
-           <div className="page-list__buttons"></div>
-           <button onClick={handlePrevPage} disabled={!prevPageUrl}>
-            Previous Page
-          </button><button onClick={handleNextPage} disabled={!nextPageUrl}>
-              Next Page
-            </button></>
-        )}
-      </div>
-    );
   };
 
   useEffect(() => {
-    fetchHeroesData('https://swapi.dev/api/people');
-  }, []);
+    getHeroes(currentPage);
+  }, [currentPage]);
 
-  const handleNextPage = () => {
-    if (nextPageUrl) {
-      fetchHeroesData(nextPageUrl);
+  const openModal = (hero: IHero) => {
+    console.log('Opening modal for:', hero);
+    if (!selectedHero) {
+      setSelectedHero(hero);
     }
   };
 
-  const handlePrevPage = () => {
-    if (prevPageUrl) {
-      fetchHeroesData(prevPageUrl);
-    }
-  };
+const closeModal = () => {
+  setSelectedHero(null);
+};
 
-  const renderHeroes = data?.map((hero: IHero) => (
+  const renderHeroes = state.data?.map((hero: IHero) => (
     <div className="list-item" key={hero.name}>
       <div className="hero-image--container" style={{ backgroundColor: hero.gender === 'female' ? 'pink' : hero.gender == 'male' ? 'lightblue' : 'lightgray'}}></div>
       {hero.gender !== 'n/a' && (
@@ -81,31 +65,51 @@ const PageList: FC = () => {
         className="gender-image"
         />
       )}
-      
-    <DetailItem
-        hero={hero}
-        onclick={() => alert(`Hero detils: ${hero.name}`)} 
-        key={''} 
-        url={''} 
-        femalePhoto={''} 
-        malePhoto={''} 
-        emptyPhoto={''}
-        />
-    </div>
+    <ListItem 
+      key={hero.name} 
+      url="https://swapi.dev/api/people/1/" 
+      hero={hero} 
+      openModal={() => openModal(hero)} />  
+      </div>
   ));
-
+  
   return (
     <div className="page-list__wrapper">
       <div className="page-list">
         <h1 className="page-list__header">Star Wars Heroes</h1>
-        {!isLoading && !isError && (
-          <div className="page-list__list">{renderHeroes}</div>
+        {state.isLoading && <p className="page-list__loading">Loading...</p>}
+        {!state.isLoading && (
+          <div>
+            <div className="page-list__list">{renderHeroes}</div>
+            <div className="page-list__buttons">
+              <button onClick={() => setCurrentPage(currentPage -1)} disabled={currentPage === 1}>
+              Previous
+              </button>
+              <span>{`Page ${currentPage} of ${totalPages || ''}`}</span>
+              <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === totalPages}>
+                Next
+              </button>
+            </div>
+          </div>
         )}
-        {isError && <p className="page-list__error">Error fetching data.</p>}
-        {renderButtons()}
+        {selectedHero && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closeModal}>
+              &times;
+              </span>
+              <h2>{selectedHero.name}</h2>
+              <p>{selectedHero.gender}</p>
+              <p>{selectedHero.birth_year}</p>
+              <p>{selectedHero.hair_color}</p>
+              <p>{selectedHero.skin_color}</p>
+              <p>{selectedHero.eye_color}</p>
+              <p>{selectedHero.mass}</p>
+              </div>
+              </div>
+        )}
       </div>
     </div>
   );
 };
-
 export { PageList };
