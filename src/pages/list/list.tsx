@@ -51,14 +51,14 @@ const closeModal = () => {
   const renderHeroes = state.data?.map((hero: IHero) => (
     <div className="list-item" key={hero.name}>
       <div className="hero-image--container" style={{ backgroundColor: hero.gender === 'female' ? 'pink' : hero.gender == 'male' ? 'lightblue' : 'lightgray'}}></div>
-      {hero.gender !== 'n/a' && (
+      {hero.gender !== 'n/a' && hero.gender !== 'hermaphrodite' && hero.gender !== 'none' && (
       <img
       src={hero.gender === 'female' ? femalePhoto : malePhoto}
       alt={hero.gender === 'female' ? 'Female hero' : 'Male hero'}
       className="gender-image"
       />
       )}
-      {hero.gender === 'n/a'  && (
+      {(hero.gender === 'n/a' || hero.gender === 'hermaphrodite' || hero.gender === 'none') && (
         <img
         src={emptyPhoto}
         alt="Empty photo"
@@ -93,18 +93,34 @@ const closeModal = () => {
           </div>
         )}
         {selectedHero && (
+          <div>
           <div className="modal">
             <div className="modal-content">
               <span className="close" onClick={closeModal}>
               &times;
               </span>
-              <h2>{selectedHero.name}</h2>
-              <p>{selectedHero.gender}</p>
-              <p>{selectedHero.birth_year}</p>
-              <p>{selectedHero.hair_color}</p>
-              <p>{selectedHero.skin_color}</p>
-              <p>{selectedHero.eye_color}</p>
-              <p>{selectedHero.mass}</p>
+              <div className="modal-content__wrapper">
+                <div className="modal-content__image-container">
+                  {selectedHero.gender === "female" ? (
+                    <img src={femalePhoto} alt="Female hero image" className="img" />
+                  ) : selectedHero.gender === "male" ? (
+                    <img src={malePhoto} alt="Male hero image" className="img" />
+                  ) : (
+                    <img src={emptyPhoto} alt="Empty hero image" className="img-empty" />
+          )}
+          </div>
+          <div className="modal-conent__details">
+              <h2 className="modal-content__heading">{selectedHero.name}</h2>
+              <p className="modal-content__details">Gender: {selectedHero.gender}</p>
+              <p className="modal-content__details">Birth year: {selectedHero.birth_year}</p>
+              <p className="modal-content__details">Hair color: {selectedHero.hair_color}</p>
+              <p className="modal-content__details">Skin color: {selectedHero.skin_color}</p>
+              <p className="modal-content__details">Eye color: {selectedHero.eye_color}</p>
+              <p className="modal-content__details">Mass: {selectedHero.mass}</p>
+              <p className="modal-content__details">Height: {selectedHero.height}</p>
+              </div>
+              </div>
+              </div>
               </div>
               </div>
         )}
@@ -112,4 +128,5 @@ const closeModal = () => {
     </div>
   );
 };
+
 export { PageList };
